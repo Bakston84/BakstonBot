@@ -1,0 +1,7 @@
+{
+    "cSpell.words": [
+        "aiogram",
+        "pydantic"
+    ],
+    "python.analysis.typeCheckingMode": "off"
+}
