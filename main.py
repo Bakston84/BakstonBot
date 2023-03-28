@@ -1,9 +1,7 @@
-from aiogram import Bot, Dispatcher
 from aiogram import executor
-from config_reader import config
+from Handlers import dp
 
-bot = Bot(token = config.bot_token.get_secret_value())
-dp = Dispatcher(bot)
+import os
 
 async def on_start(_):
     print('Start Bot!')
