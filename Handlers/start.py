@@ -16,4 +16,3 @@ async def start_commands(message: Message):
         add_new_user(new_user)
 
     await message.answer(f'{message.from_user.first_name}, привет!', reply_markup=kb_main)
-
