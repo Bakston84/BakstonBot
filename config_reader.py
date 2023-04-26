@@ -2,7 +2,6 @@ from pydantic import BaseSettings, SecretStr
 
 class Setting(BaseSettings):
     bot_token: SecretStr
-    path: SecretStr
 
     class Config:
         env_file = '.env'
