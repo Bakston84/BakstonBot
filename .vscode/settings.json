@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "aiogram",
+        "loguru",
         "pydantic",
         "Standart"
     ],

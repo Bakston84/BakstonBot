@@ -1,9 +1,6 @@
 from aiogram import executor
 from loader import dp
 
-
-import os
-
 async def on_start(_):
     try:
         print('DB connection... OK!')
