@@ -1,5 +1,5 @@
 from aiogram import executor
-from app import dp
+from handlers import dp
 
 async def on_start(_):
     print('BOT start... OK!')
