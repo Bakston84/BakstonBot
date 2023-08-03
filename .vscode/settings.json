@@ -1,9 +1,5 @@
 {
     "cSpell.words": [
-        "aiogram",
-        "loguru",
-        "pydantic",
-        "Standart"
-    ],
-    "python.analysis.typeCheckingMode": "off"
+        "aiogram"
+    ]
 }
