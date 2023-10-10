@@ -1,3 +1,3 @@
-from .inline_keyboard import main_menu, callback_data
+from .inline_keyboard import callback_data, main_menu, games_menu
 
-__all__ = [main_menu, callback_data]
+__all__ = [callback_data, main_menu, games_menu]
