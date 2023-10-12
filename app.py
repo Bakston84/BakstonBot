@@ -1,10 +1,11 @@
 from aiogram import executor
 from handlers import dp
-from bot_db import user_bot
+from bot_db import user_bot, game_durak
 
 async def on_start(_):
     try:
         user_bot.create_table_users()
+        game_durak.create_table_durak()
         print('DB BOT connection... OK!')
     except:
         print('DB BOT connection... FAILURE!')
