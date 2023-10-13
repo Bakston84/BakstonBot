@@ -16,3 +16,9 @@ def open_durak_games(data):
         open_sessions.row(InlineKeyboardButton(text=str(f'Сессия {i[0]}'), callback_data=callback_data.new(name=str(f'durak_session_{i[0]}'))))
     open_sessions.row(InlineKeyboardButton(text='Создать сессию', callback_data=callback_data.new(name='add_durak_session')))
     return open_sessions
+
+def view_cards_user(data):
+    user_cards = InlineKeyboardMarkup(row_width=1)
+    for i in data:
+        user_cards.row(InlineKeyboardButton(text=str(f'{i}'), callback_data=callback_data.new(name=str(f'card_{i}'))))
+    return user_cards

@@ -17,6 +17,11 @@ class GameDurak:
         sql = '''INSERT INTO durak (deck, admin_id, status) VALUES (?, ?, ?)'''
         db_bot.execute(sql, parameters, commit=True)
 
+    def find_durak(self, durak_id):
+        parameters = (durak_id, )
+        sql = '''SELECT * FROM durak WHERE durak_id = ?'''
+        return db_bot.execute(sql, parameters, fetchone=True)
+
     def find_durak_status(self, status):
         parameters = (status, )
         sql = '''SELECT * FROM durak WHERE status = ?'''
@@ -32,6 +37,13 @@ class GameDurak:
         parameters = (data.get('status'),
                       data.get('durak_id'))
         sql = '''UPDATE durak SET status = ? WHERE durak_id = ?'''
+        db_bot.execute(sql, parameters, commit=True)
+
+    def update_durak(self, data:dict):
+        parameters = (data.get('deck'),
+                      data.get('status'),
+                      data.get('durak_id'))
+        sql = '''UPDATE durak SET deck = ?, status = ? WHERE durak_id = ?'''
         db_bot.execute(sql, parameters, commit=True)
 
 game_durak = GameDurak()

@@ -1,8 +1,7 @@
 from aiogram.types import Message, CallbackQuery
-from aiogram.dispatcher import FSMContext
 from loader import dp
 from bot_keyboards import callback_data, main_menu, games_menu
-from bot_db import user_bot
+from bot_db import user_bot, durak_cards
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: Message):
@@ -17,5 +16,7 @@ async def call_app_games(callback: CallbackQuery):
                     durak_id = 0,
                     durak_position = 0)
         user_bot.add_user(data)
-        
+        data = dict(tg_id = tg_id,
+                    deck = None)
+        durak_cards.add_user_cards(data)
     await dp.bot.send_message(tg_id, text='Выбери игру', reply_markup=games_menu)

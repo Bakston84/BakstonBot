@@ -9,12 +9,10 @@ class UserBot:
         db_bot.__init__
         db_bot.execute(sql, commit=True)
 
-    def add_user(self, data: dict):
-        parameters = (
-            data.get('tg_id'),
-            data.get('durak_id'),
-            data.get('durak_position'))
-        
+    def add_user(self, data:dict):
+        parameters = (data.get('tg_id'),
+                      data.get('durak_id'),
+                      data.get('durak_position'))     
         sql = '''INSERT INTO users (tg_id, durak_id, durak_position) VALUES (?, ?, ?)'''
         db_bot.execute(sql, parameters, commit=True)
 
@@ -29,6 +27,5 @@ class UserBot:
                       data.get('tg_id'))
         sql = '''UPDATE users SET durak_id = ?, durak_position = ? WHERE tg_id = ?'''
         db_bot.execute(sql, parameters, commit=True)
-        pass
 
 user_bot = UserBot()

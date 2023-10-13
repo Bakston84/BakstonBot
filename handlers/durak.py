@@ -1,8 +1,8 @@
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import CallbackQuery
 from loader import dp
-from bot_keyboards import callback_data, open_durak_games
+from bot_keyboards import callback_data, open_durak_games, view_cards_user
 from data import deck
-from bot_db import game_durak, user_bot
+from bot_db import game_durak, user_bot, durak_cards
 
 
 @dp.callback_query_handler(callback_data.filter(name='g_durak'))
@@ -26,39 +26,24 @@ async def call_g_durak(callback: CallbackQuery):
     if other_user:
         await dp.bot.send_message(tg_id, text='Найдены открытые сессии:', reply_markup=open_durak_games(other_user))
 
-    # cards = deck.create_deck()
-    # data = dict(deck=str(cards),
-    #             admin_id = tg_id,
-    #             status='open')
-    # game_durak.add_durak(data)
-
-    #     data = dict(durak_id = game_durak.find_durak_tg_id(tg_id)[0],
-    #                 status = 'close')
-    #     game_durak.update_durak_status(data)
-
-    # if not game_durak.find_durak_status(status='open'):
-    #     cards = deck.create_deck()
-    #     data = dict(deck=str(cards),
-    #                 admin_id = tg_id,
-    #                 status='open')
-    #     game_durak.add_durak(data)  
-
-    # cards = deck.create_deck()
-    # data = dict(deck=str(cards),
-    #             admin_id = tg_id,
-    #             status='open')
-    # game_durak.add_durak(data)
-
-        # data = game_durak.find_durak_tg_id(admin_id=tg_id)
-        # game_durak.update_durak_status(dict(durak_id = data[0],
-        #                                     status = 'close'))
-        # print('Сессия создана ', data)
-    # else:
-    #     if not game_durak.find_durak_status(status='open'):
-    #         cards = deck.create_deck()
-    #         data = dict(deck=str(cards),
-    #                     admin_id = tg_id,
-    #                     status='open')
-    #         game_durak.add_durak(data)  
-    #     else:
-    #         await dp.bot.send_message(tg_id, text='Найдены открытые сессии:')
+@dp.callback_query_handler(callback_data.filter(name='add_durak_session'))
+async def call_add_durak_session(callback: CallbackQuery):
+    tg_id = callback.from_user.id
+    cards = deck.create_deck()
+    data = dict(deck=str(cards),
+                admin_id = tg_id,
+                status='open')
+    game_durak.add_durak(data)
+    user_game = game_durak.find_durak_tg_id(dict(admin_id = tg_id,
+                                                 status = 'open'))
+    durak_id = user_game[0][0]
+    data = dict(tg_id = tg_id,
+                durak_id = durak_id,
+                durak_position = 1)
+    user_bot.update_user(data)
+    data = dict(tg_id = tg_id,
+                deck = str(deck.handing_cards(durak_id)))
+    durak_cards.update_user_cards(data)
+    cards = durak_cards.find_cards(tg_id)
+    data = deck.cards_list(cards)
+    await dp.bot.send_message(tg_id, text=f'Сессия {user_game[0][0]} создана! Ждём других игроков.', reply_markup=view_cards_user(data))
